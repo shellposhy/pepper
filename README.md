@@ -1,68 +1,39 @@
-# fastjson
+# Pepper
 
-[![Build Status](https://travis-ci.org/alibaba/fastjson.svg?branch=master)](https://travis-ci.org/alibaba/fastjson)
-[![Codecov](https://codecov.io/gh/alibaba/fastjson/branch/master/graph/badge.svg)](https://codecov.io/gh/alibaba/fastjson/branch/master)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.alibaba/fastjson/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.alibaba/fastjson/)
-[![GitHub release](https://img.shields.io/github/release/alibaba/fastjson.svg)](https://github.com/alibaba/fastjson/releases)
-[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-Fastjson is a Java library that can be used to convert Java Objects into their JSON representation. It can also be used to convert a JSON string to an equivalent Java object. Fastjson can work with arbitrary Java objects including pre-existing objects that you do not have source-code of.
+Pepper is a Java library that can be used to use Lucene library to as the Search Engine. It provide the base APIs to use the Lucene.
 
-### Fastjson Goals
- * Provide best performance in server side and android client
- * Provide simple toJSONString() and parseObject() methods to convert Java objects to JSON and vice-versa
- * Allow pre-existing unmodifiable objects to be converted to and from JSON
- * Extensive support of Java Generics
- * Allow custom representations for objects
- * Support arbitrarily complex objects (with deep inheritance hierarchies and extensive use of generic types)
+### Pepper Goals
+ * Provide best performance in multi data source(e.g. MySql Or Oracle) to create and manage the index 
+*  Support the multi chinese word segmentation,default use Paoding segmentation
 
-![fastjson](logo.jpg "fastjson")
 
-## Documentation
-
-- [Documentation Home](https://github.com/alibaba/fastjson/wiki)
-- [Frequently Asked Questions](https://github.com/alibaba/fastjson/wiki/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98)
-
-## Benchmark
-
-https://github.com/eishay/jvm-serializers/wiki
-
-## Download
-
-- http://repo1.maven.org/maven2/com/alibaba/fastjson/  
-- [the latest JAR][1]  
-[1]: https://search.maven.org/remote_content?g=com.alibaba&a=fastjson&v=LATEST
 
 ## Maven
 
 ```xml
 <dependency>
-    <groupId>com.alibaba</groupId>
-    <artifactId>fastjson</artifactId>
-    <version>1.2.33</version>
+	<groupId>org.apache.lucene</groupId>
+	<artifactId>lucene-core</artifactId>
+	<version>3.5.0</version>
 </dependency>
 ```
 
 ```xml
 <dependency>
-    <groupId>com.alibaba</groupId>
-    <artifactId>fastjson</artifactId>
-    <version>1.1.58.android</version>
+	<groupId>org.apache.lucene</groupId>
+	<artifactId>lucene-highlighter</artifactId>
+	<version>3.5.0</version>
 </dependency>
 ```
 
-## Gradle via JCenter
-
-``` groovy
-compile 'com.alibaba:fastjson:1.2.33'
+```xml
+<dependency>
+	<groupId>org.apache.lucene</groupId>
+	<artifactId>lucene-memory</artifactId>
+	<version>3.5.0</version>
+</dependency>
 ```
-
-``` groovy
-compile 'com.alibaba:fastjson:1.1.58.android'
-```
-
-Please see this [Wiki Download Page][Wiki] for more repository infos.
-[Wiki]: https://github.com/alibaba/fastjson/wiki#download
 
 ### *License*
 
