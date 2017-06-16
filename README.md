@@ -37,10 +37,10 @@ Pepper is a Java library that can be used to use Lucene library to as the Search
 
 ### *License*
 
-Fastjson is released under the [Apache 2.0 license](license.txt).
+Pepper is released under the [Apache 2.0 license](license.txt).
 
 ```
-Copyright 1999-2017 Alibaba Group Holding Ltd.
+Copyright 1999-2017
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
