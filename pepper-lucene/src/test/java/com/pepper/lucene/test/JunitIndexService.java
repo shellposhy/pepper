@@ -23,7 +23,7 @@ import com.pepper.lucene.service.IndexService;
 public class JunitIndexService {
 
 	private IndexDao indexService;
-	private static final String PATH = "D:/test";
+	private static final String PATH = "D:/resource/test";
 
 	public String getIndexPath(Integer baseId) {
 		return PATH + "/idx/" + baseId;
