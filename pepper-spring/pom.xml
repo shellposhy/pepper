@@ -51,6 +51,11 @@
 			<groupId>cn.com.zhihuigu</groupId>
 			<artifactId>paoding-analyzer</artifactId>
 		</dependency>
+		<!-- lemmon -->
+		<dependency>
+			<groupId>bangyiba.common</groupId>
+			<artifactId>lemmon</artifactId>
+		</dependency>
 	</dependencies>
 
 	<!-- properties -->

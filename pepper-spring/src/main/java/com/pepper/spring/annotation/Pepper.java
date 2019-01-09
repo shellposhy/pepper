@@ -17,5 +17,10 @@ import org.springframework.stereotype.Component;
 @Retention(RetentionPolicy.RUNTIME)
 @Component
 public @interface Pepper {
+
+	// The name of the bean definition that serves.
 	Class<?> value();
+
+	// The bean create lucene index save path
+	String path() default "";
 }

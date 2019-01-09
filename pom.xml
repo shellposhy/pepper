@@ -29,6 +29,7 @@
 		<spring_version>4.3.10.RELEASE</spring_version>
 		<lucene_version>3.5.0</lucene_version>
 		<paoding_version>1.0</paoding_version>
+		<lemon_version>3.1</lemon_version>
 
 		<slf4j_version>1.7.25</slf4j_version>
 		<log_version>1.2</log_version>
@@ -86,6 +87,12 @@
 				<groupId>cn.com.zhihuigu</groupId>
 				<artifactId>paoding-analyzer</artifactId>
 				<version>${paoding_version}</version>
+			</dependency>
+			<!-- lemmon -->
+			<dependency>
+				<groupId>bangyiba.common</groupId>
+				<artifactId>lemmon</artifactId>
+				<version>${lemon_version}</version>
 			</dependency>
 			<!-- log -->
 			<dependency>
