@@ -5,6 +5,7 @@ import java.io.Serializable;
 import org.apache.lucene.document.Field;
 
 import com.pepper.spring.annotation.PepperField;
+import com.pepper.spring.enums.EDataType;
 
 /**
  * Lucene base Model
@@ -14,7 +15,7 @@ import com.pepper.spring.annotation.PepperField;
  */
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 6549885313472962978L;
-	@PepperField(value = "UUID", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, termVector = Field.TermVector.NO, type = String.class)
+	@PepperField(key = "UUID", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, termVector = Field.TermVector.NO, type = EDataType.STRING)
 	private String uuid;
 
 	public String getUuid() {
