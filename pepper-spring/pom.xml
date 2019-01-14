@@ -73,6 +73,11 @@
 			<groupId>bangyiba.common</groupId>
 			<artifactId>base</artifactId>
 		</dependency>
+		<!-- cglib -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+		</dependency>
 	</dependencies>
 
 	<!-- properties -->

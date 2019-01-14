@@ -26,10 +26,4 @@ public @interface PepperField {
 
 	/** The base java data type */
 	EDataType type() default EDataType.STRING;
-
-	/**
-	 * If the field is an enumerated type, you need to specify a {@link Enum}
-	 * index value.
-	 */
-	int enumValue() default 0;
 }

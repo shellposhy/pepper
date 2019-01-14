@@ -32,6 +32,7 @@
 		<jackson.version>2.9.4</jackson.version>
 		<lemon_version>3.1</lemon_version>
 		<base_version>1.0</base_version>
+		<cglib_version>3.1</cglib_version>
 
 		<slf4j_version>1.7.25</slf4j_version>
 		<log_version>1.2</log_version>
@@ -116,6 +117,12 @@
 				<groupId>bangyiba.common</groupId>
 				<artifactId>base</artifactId>
 				<version>${base_version}</version>
+			</dependency>
+			<!-- cglib -->
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${cglib_version}</version>
 			</dependency>
 			<!-- log -->
 			<dependency>

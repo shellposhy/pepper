@@ -6,12 +6,13 @@ import java.util.Date;
 import org.apache.lucene.document.Field;
 
 import com.pepper.spring.annotation.PepperField;
+import com.pepper.spring.base.BaseEntity;
 import com.pepper.spring.enums.EDataType;
 
-public class Article implements Serializable {
+public class Article extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@PepperField(key = "ID", store = Field.Store.YES, index = Field.Index.ANALYZED, termVector = Field.TermVector.NO, type = EDataType.INTEGER)
-	private Integer id=122;
+	private Integer id = 122;
 	@PepperField(key = "Title", store = Field.Store.YES, index = Field.Index.ANALYZED, termVector = Field.TermVector.YES, type = EDataType.STRING)
 	private String title = "关于我们";
 	@PepperField(key = "Content", store = Field.Store.NO, index = Field.Index.ANALYZED, termVector = Field.TermVector.WITH_POSITIONS_OFFSETS, type = EDataType.STRING)
@@ -20,6 +21,10 @@ public class Article implements Serializable {
 	private String author = "中国社会扶贫网";
 	@PepperField(key = "Publish", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, termVector = Field.TermVector.NO, type = EDataType.DATETIME)
 	private Date publish = new Date();
+	@PepperField(key = "ExtendInfo", type = EDataType.OBJECT)
+	private ExtendInfo extendInfo = new ExtendInfo();
+	@PepperField(key = "DataType", store = Field.Store.YES, index = Field.Index.NO, termVector = Field.TermVector.NO, type = EDataType.ENUM)
+	private EDataType dataType = EDataType.INTEGER;
 
 	public Integer getId() {
 		return id;
@@ -59,6 +64,22 @@ public class Article implements Serializable {
 
 	public void setPublish(Date publish) {
 		this.publish = publish;
+	}
+
+	public ExtendInfo getExtendInfo() {
+		return extendInfo;
+	}
+
+	public void setExtendInfo(ExtendInfo extendInfo) {
+		this.extendInfo = extendInfo;
+	}
+
+	public EDataType getDataType() {
+		return dataType;
+	}
+
+	public void setDataType(EDataType dataType) {
+		this.dataType = dataType;
 	}
 
 }

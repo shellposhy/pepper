@@ -2,6 +2,7 @@ package com.pepper.spring.util;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 import java.util.List;
 
@@ -12,6 +13,9 @@ import org.slf4j.LoggerFactory;
 
 import com.pepper.spring.annotation.PepperField;
 import com.pepper.spring.enums.EDataType;
+
+import net.sf.cglib.reflect.FastClass;
+import net.sf.cglib.reflect.FastMethod;
 
 import static cn.com.lemon.annotation.Reflections.fields;
 import static cn.com.lemon.annotation.Reflections.get;
@@ -127,8 +131,18 @@ public final class Objects {
 			break;
 		case ENUM:
 			docField = new NumericField(field.key(), store, index.ordinal() == 0 ? false : true);
-			docField.setIntValue(field.enumValue());
-			doc.add(docField);
+			/** Dynamic proxies generate enum objects */
+			FastClass enumClazz = FastClass.create(value.getClass());
+			/** Default calls the enumerated {@link enum#ordinal} method */
+			FastMethod enumMethod = enumClazz.getMethod("ordinal", null);
+			try {
+				Object intObject = enumMethod.invoke(value, null);
+				docField.setIntValue(((Integer) intObject).intValue());
+				doc.add(docField);
+			} catch (InvocationTargetException e1) {
+				e1.printStackTrace();
+				LOG.error("The name[" + field.key() + "] of Field created error!");
+			}
 			break;
 		case OBJECT:
 			object(value, doc);
