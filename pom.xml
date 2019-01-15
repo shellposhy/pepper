@@ -30,7 +30,7 @@
 		<lucene_version>3.5.0</lucene_version>
 		<paoding_version>1.0</paoding_version>
 		<jackson.version>2.9.4</jackson.version>
-		<lemon_version>3.1</lemon_version>
+		<lemon_version>3.2</lemon_version>
 		<base_version>1.0</base_version>
 		<cglib_version>3.1</cglib_version>
 
