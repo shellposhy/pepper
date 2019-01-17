@@ -9,34 +9,13 @@ import org.apache.lucene.document.Field;
 import com.pepper.spring.annotation.PepperField;
 import com.pepper.spring.enums.EDataType;
 
-import static cn.com.lemon.base.Strings.uuid;
-import static cn.com.lemon.base.DateUtil.year;
-import static cn.com.lemon.base.DateUtil.month;
-import static cn.com.lemon.base.DateUtil.day;;
-
 /**
  * Lucene base Model
  * <p>
  * Each {@link Document} and the follow fields:<blockquote>
  * 
  * <pre>
- * UUID
- * </pre>
- * 
- * <pre>
- * DocTime
- * </pre>
- * 
- * <pre>
- * Year
- * </pre>
- * 
- * <pre>
- * Month
- * </pre>
- * 
- * <pre>
- * Day
+ * UUID,DocTime,Year,Month,Day
  * </pre>
  * 
  * </blockquote>
@@ -47,15 +26,15 @@ import static cn.com.lemon.base.DateUtil.day;;
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 6549885313472962978L;
 	@PepperField(key = "UUID", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.STRING)
-	private String uuid = uuid();
+	private String uuid;
 	@PepperField(key = "DocTime", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.DATETIME)
-	private Date docTime = new Date();
+	private Date docTime;
 	@PepperField(key = "Year", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.INTEGER)
-	private int year = year(getDocTime());
+	private int year;
 	@PepperField(key = "Month", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.INTEGER)
-	private int month = month(getDocTime());
+	private int month;
 	@PepperField(key = "Day", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.INTEGER)
-	private int day = day(getDocTime());
+	private int day;
 
 	public String getUuid() {
 		return uuid;

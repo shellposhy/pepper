@@ -7,6 +7,8 @@ import java.lang.annotation.Target;
 
 import org.springframework.stereotype.Component;
 
+import com.pepper.spring.enums.EIndexOperate;
+
 /**
  * Annotation tag for lucene service
  *
@@ -18,9 +20,12 @@ import org.springframework.stereotype.Component;
 @Component
 public @interface Pepper {
 
-	// The name of the bean definition that serves.
+	/** The name of the bean definition that serves. */
 	Class<?> value();
 
-	// The bean create lucene index save path
+	/** The bean create lucene index save path */
 	String path() default "";
+
+	/** index file operate type,default add new {@link document} into index */
+	EIndexOperate type() default EIndexOperate.INSERT;
 }
