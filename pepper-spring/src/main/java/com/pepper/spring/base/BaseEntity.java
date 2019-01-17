@@ -3,6 +3,7 @@ package com.pepper.spring.base;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 
 import com.pepper.spring.annotation.PepperField;
@@ -15,6 +16,30 @@ import static cn.com.lemon.base.DateUtil.day;;
 
 /**
  * Lucene base Model
+ * <p>
+ * Each {@link Document} and the follow fields:<blockquote>
+ * 
+ * <pre>
+ * UUID
+ * </pre>
+ * 
+ * <pre>
+ * DocTime
+ * </pre>
+ * 
+ * <pre>
+ * Year
+ * </pre>
+ * 
+ * <pre>
+ * Month
+ * </pre>
+ * 
+ * <pre>
+ * Day
+ * </pre>
+ * 
+ * </blockquote>
  * 
  * @author shellpo shih
  * @version 1.0

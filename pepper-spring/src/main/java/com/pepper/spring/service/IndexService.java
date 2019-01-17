@@ -2,6 +2,7 @@ package com.pepper.spring.service;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.lucene.document.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -99,5 +100,32 @@ public class IndexService {
 		return search(queryString, 1000000, sortFields, null, first, size, path);
 	}
 
+	/**
+	 * The index generated
+	 * 
+	 * @param doc
+	 * @param path
+	 * @return
+	 */
+	public boolean index(Document doc, String... path) {
+		checkArgument(null != path && path.length > 0, "When data index save, index storage address is not empty!");
+		try {
+			if (path.length == 1) {
+				indexService.addDocument(path[0], doc);
+				return true;
+			} else {
+				for (String address : path) {
+					indexService.addDocument(address, doc);
+				}
+				return true;
+			}
+		} catch (PepperException e) {
+			LOG.error("There is an exception in save index!");
+			e.printStackTrace();
+			return false;
+		}
+	}
 	
+	
+
 }

@@ -58,11 +58,18 @@ public final class Objects {
 		if (null != fields && fields.size() > 0) {
 			for (Field field : fields) {
 				if (null != field) {
-					Object value = get(clazz, field.getName());
 					PepperField pepperField = field.getAnnotation(PepperField.class);
-					if (null != value && null != pepperField) {
-						// doc.add(field(pepperField, value));
-						field(pepperField, value, doc);
+					/**
+					 * Matches whether the Java {@link Object} {@link Field}
+					 * class type matches the {@link PepperField} annotation
+					 * {@link EDataType} data type
+					 */
+					Object value = get(clazz, field.getName());
+					if (null != value) {
+						if (type(field, value, pepperField)) {
+							// doc.add(field(pepperField, value));
+							field(pepperField, value, doc);
+						}
 					}
 				}
 			}
@@ -78,16 +85,60 @@ public final class Objects {
 			if (null != fields && fields.size() > 0) {
 				for (Field field : fields) {
 					if (null != field) {
-						Object value = get(clazz, field.getName());
 						PepperField pepperField = field.getAnnotation(PepperField.class);
-						if (null != value && null != pepperField) {
-							// doc.add(field(pepperField, value));
-							field(pepperField, value, doc);
+						/**
+						 * Matches whether the Java {@link Object} {@link Field}
+						 * class type matches the annotation data type
+						 * <p>
+						 */
+						Object value = get(clazz, field.getName());
+						if (null != value) {
+							if (type(field, value, pepperField)) {
+								// doc.add(field(pepperField, value));
+								field(pepperField, value, doc);
+							}
 						}
 					}
 				}
 			}
 		}
+	}
+
+	private static boolean type(Field field, Object value, PepperField pepperField) {
+		if (null != pepperField && null != field) {
+			Class<?> fieldType = EDataType.type(pepperField.type());
+			Class<?> valueType = field.getType();
+			if (null != fieldType) {
+				/** Java enumerated {@link Enum} type values */
+				if (value instanceof Enum) {
+					valueType = Enum.class;
+				}
+				/**
+				 * Non-enumerated type determination, except for a few Java base
+				 * types specified.Others only support Java object types.
+				 */
+				else {
+					String valueTypeName = valueType.getName();
+					if (valueTypeName.equals("int") || value.equals("java.lang.Integer")) {
+						valueType = Integer.TYPE;
+					} else if (valueTypeName.equals("long") || value.equals("java.lang.Long")) {
+						valueType = Long.TYPE;
+					} else if (valueTypeName.equals("double") || value.equals("java.lang.Double")) {
+						valueType = Double.TYPE;
+					} else if (valueTypeName.equals("float") || value.equals("java.lang.Float")) {
+						valueType = Float.TYPE;
+					} else if (valueTypeName.equals("java.lang.String")) {
+						valueType = String.class;
+					} else if (valueTypeName.equals("java.util.Date")) {
+						valueType = Date.class;
+					} else {
+						valueType = Object.class;
+					}
+				}
+			}
+			return fieldType.equals(valueType);
+		}
+		return false;
 	}
 
 	private static void field(PepperField field, Object value, Document doc) {
