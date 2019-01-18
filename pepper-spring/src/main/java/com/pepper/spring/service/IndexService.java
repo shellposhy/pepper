@@ -3,6 +3,9 @@ package com.pepper.spring.service;
 import javax.annotation.PostConstruct;
 
 import org.apache.lucene.document.Document;
+import org.apache.lucene.index.Term;
+import org.apache.lucene.search.Query;
+import org.apache.lucene.search.TermQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,7 @@ import com.pepper.lucene.service.IndexDao;
 import com.pepper.spring.util.Resources;
 
 import static cn.com.lemon.base.Strings.isNullOrEmpty;
+
 import static cn.com.lemon.base.Preasserts.checkArgument;
 
 @Service
@@ -125,7 +129,54 @@ public class IndexService {
 			return false;
 		}
 	}
-	
-	
 
+	/**
+	 * Delete index file
+	 * 
+	 * @param queryString
+	 *            search condition
+	 * @param path
+	 *            the index storage address
+	 * @return {@link Boolean}
+	 */
+	public boolean delete(String queryString, String... path) {
+		checkArgument(null != path && path.length > 0, "When data index delete, index storage address is not empty!");
+		checkArgument(!isNullOrEmpty(queryString), "When data index delete, delete condition is not empty!");
+		try {
+			if (path.length == 1) {
+				indexService.deleteDocuments(path[0], queryString);
+			} else {
+				for (String address : path) {
+					indexService.deleteDocuments(address, queryString);
+				}
+			}
+			return true;
+		} catch (PepperException e) {
+			LOG.error("There is an exception in save index!");
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Delete index file base on index key value {@code UUID}
+	 * 
+	 * @param uuid
+	 *            index key value
+	 * @param path
+	 *            the index storage address
+	 * @return {@link Boolean}
+	 */
+	public boolean delete(String uuid, String path) {
+		checkArgument(!isNullOrEmpty(uuid) && !isNullOrEmpty(path),
+				"When data index delete, delete condition and path are not empty!");
+		Query query = new TermQuery(new Term("UUID", uuid));
+		try {
+			indexService.deleteDocuments(path, query);
+			return true;
+		} catch (PepperException e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
