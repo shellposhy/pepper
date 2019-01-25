@@ -1,4 +1,4 @@
-package com.pepper.spring;
+package com.pepper.spring.service;
 
 import java.util.Map;
 
@@ -14,7 +14,7 @@ import org.springframework.context.ApplicationContextAware;
 
 import com.pepper.spring.annotation.Pepper;
 import com.pepper.spring.enums.EIndexOperate;
-import com.pepper.spring.service.IndexService;
+
 import static com.pepper.spring.util.Objects.doc;
 
 import static cn.com.lemon.annotation.Reflections.get;

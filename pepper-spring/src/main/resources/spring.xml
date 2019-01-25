@@ -10,7 +10,7 @@
 
 	<context:property-placeholder location="classpath:pepper.properties" />
 
-	<bean id="pepperService" class="com.pepper.spring.PepperService">
+	<bean id="pepperService" class="com.pepper.spring.service.PepperService">
 		<constructor-arg name="indexAddress" value="${server.address}" />
 	</bean>
 
