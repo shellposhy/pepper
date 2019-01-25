@@ -4,7 +4,6 @@ import javax.annotation.PostConstruct;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.search.Query;
 import org.apache.lucene.search.TermQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +20,6 @@ import com.pepper.lucene.service.IndexDao;
 import com.pepper.spring.util.Resources;
 
 import static cn.com.lemon.base.Strings.isNullOrEmpty;
-
 import static cn.com.lemon.base.Preasserts.checkArgument;
 
 @Service
@@ -170,9 +168,8 @@ public class IndexService {
 	public boolean delete(String uuid, String path) {
 		checkArgument(!isNullOrEmpty(uuid) && !isNullOrEmpty(path),
 				"When data index delete, delete condition and path are not empty!");
-		Query query = new TermQuery(new Term("UUID", uuid));
 		try {
-			indexService.deleteDocuments(path, query);
+			indexService.deleteDocuments(path, new TermQuery(new Term("UUID", uuid)));
 			return true;
 		} catch (PepperException e) {
 			e.printStackTrace();

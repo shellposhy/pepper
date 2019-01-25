@@ -5,10 +5,12 @@ import java.util.Date;
 
 import org.apache.lucene.document.Field;
 
+import com.pepper.spring.annotation.Pepper;
 import com.pepper.spring.annotation.PepperField;
 import com.pepper.spring.base.BaseEntity;
 import com.pepper.spring.enums.EDataType;
 
+@Pepper(value = Article.class, path = "content")
 public class Article extends BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@PepperField(key = "ID", store = Field.Store.YES, index = Field.Index.ANALYZED, termVector = Field.TermVector.NO, type = EDataType.INTEGER)

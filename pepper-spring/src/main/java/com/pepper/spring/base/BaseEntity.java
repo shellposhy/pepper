@@ -8,6 +8,7 @@ import org.apache.lucene.document.Field;
 
 import com.pepper.spring.annotation.PepperField;
 import com.pepper.spring.enums.EDataType;
+import com.pepper.spring.enums.EIndexOperate;
 
 /**
  * Lucene base Model
@@ -35,6 +36,8 @@ public class BaseEntity implements Serializable {
 	private int month;
 	@PepperField(key = "Day", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.INTEGER)
 	private int day;
+	/** Index file operation mode,default added new index files. */
+	private EIndexOperate operate = EIndexOperate.INSERT;
 
 	public String getUuid() {
 		return uuid;
@@ -74,6 +77,14 @@ public class BaseEntity implements Serializable {
 
 	public void setDay(int day) {
 		this.day = day;
+	}
+
+	public EIndexOperate getOperate() {
+		return operate;
+	}
+
+	public void setOperate(EIndexOperate operate) {
+		this.operate = operate;
 	}
 
 }
