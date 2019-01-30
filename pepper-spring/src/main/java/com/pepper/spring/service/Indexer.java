@@ -1,13 +1,10 @@
 package com.pepper.spring.service;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.Term;
 import org.apache.lucene.search.TermQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
 
 import com.pepper.lucene.Configuration;
 import com.pepper.lucene.PepperException;
@@ -17,30 +14,31 @@ import com.pepper.lucene.common.PepperResult;
 import com.pepper.lucene.comparator.base.PepperSortField;
 import com.pepper.lucene.comparator.base.PepperSortField.FieldType;
 import com.pepper.lucene.service.IndexDao;
-import com.pepper.spring.util.Resources;
 
 import static cn.com.lemon.base.Strings.isNullOrEmpty;
 import static cn.com.lemon.base.Preasserts.checkArgument;
 
-@Service
-public class IndexService {
-	private static final Logger LOG = LoggerFactory.getLogger(IndexService.class.getName());
-	private static final String RESOURCE_NAME = "pepper";
+public class Indexer {
+	private static final Logger LOG = LoggerFactory.getLogger(Indexer.class.getName());
 	private IndexDao indexService;
+	// configuration parameter
+	private String dic;
+	private String preTag;
+	private String postTag;
+	private String indexName;
 
-	@PostConstruct
-	public void init() {
-		Resources resources = new Resources(RESOURCE_NAME);
+	public Indexer(String dic, String preTag, String postTag, String indexName) {
+		this.dic = dic;
+		this.preTag = preTag;
+		this.postTag = postTag;
+		this.indexName = indexName;
 		Configuration indexConfig = new Configuration();
-		indexConfig.setAnalyzerFactory(new PaodingAnalyzer(resources.value("paoding.dic.address")));
-		indexConfig.setHightLightPreTag(resources.value("high.light.pre.tag"));
-		indexConfig.setHightLightPostTag(resources.value("high.light.post.tag"));
+		indexConfig.setAnalyzerFactory(new PaodingAnalyzer(this.dic));
+		indexConfig.setHightLightPreTag(this.preTag);
+		indexConfig.setHightLightPostTag(this.postTag);
 		indexConfig.setHightLightAnalyzerMode(IAnalyzer.MAX_WORD_LENGTH_MODE);
-		indexService = com.pepper.lucene.service.IndexService.getInstance(resources.value("index.service.name"));
+		indexService = com.pepper.lucene.service.IndexService.getInstance(this.indexName);
 		indexService.setIndexConfig(indexConfig);
-		if (null != indexService) {
-			resources.close();
-		}
 	}
 
 	/**
@@ -110,6 +108,7 @@ public class IndexService {
 	 * @return
 	 */
 	public boolean index(Document doc, String... path) {
+		LOG.debug("Increate index");
 		checkArgument(null != path && path.length > 0, "When data index save, index storage address is not empty!");
 		try {
 			if (path.length == 1) {
@@ -176,4 +175,22 @@ public class IndexService {
 			return false;
 		}
 	}
+
+	/** getter and setter method */
+	public String getDic() {
+		return dic;
+	}
+
+	public String getPreTag() {
+		return preTag;
+	}
+
+	public String getPostTag() {
+		return postTag;
+	}
+
+	public String getIndexName() {
+		return indexName;
+	}
+
 }

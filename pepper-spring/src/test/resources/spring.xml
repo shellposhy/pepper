@@ -10,16 +10,16 @@
 
 	<context:property-placeholder location="classpath:pepper.properties" />
 	
-	<bean id="indexService" class="com.pepper.spring.service.IndexService">
-		<constructor-arg name="dicAddress" value="${paoding.dic.address}" />
+	<bean id="indexer" class="com.pepper.spring.service.Indexer">
+		<constructor-arg name="dic" value="${paoding.dic.address}" />
 		<constructor-arg name="preTag" value="${high.light.pre.tag}" />
 		<constructor-arg name="postTag" value="${high.light.post.tag}" />
 		<constructor-arg name="indexName" value="${index.service.name}" />
 	</bean>
 
 	<bean id="pepperService" class="com.pepper.spring.service.PepperService">
-		<constructor-arg name="indexAddress" value="${server.address}" />
-		<constructor-arg name="indexService" ref="indexService" />
+		<constructor-arg name="indexAddress" value="${lucene.index.address}" />
+		<constructor-arg name="indexer" ref="indexer" />
 	</bean>
 
 </beans>
