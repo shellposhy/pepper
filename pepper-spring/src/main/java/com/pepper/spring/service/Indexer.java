@@ -108,7 +108,6 @@ public class Indexer {
 	 * @return
 	 */
 	public boolean index(Document doc, String... path) {
-		LOG.debug("Increate index");
 		checkArgument(null != path && path.length > 0, "When data index save, index storage address is not empty!");
 		try {
 			if (path.length == 1) {
