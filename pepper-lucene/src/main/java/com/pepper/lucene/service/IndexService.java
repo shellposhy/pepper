@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.index.CorruptIndexException;
@@ -32,6 +31,8 @@ import org.apache.lucene.store.NoLockFactory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.store.SimpleFSDirectory;
 import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.pepper.lucene.Configuration;
 import com.pepper.lucene.Configuration.DirectoryType;
@@ -41,6 +42,8 @@ import com.pepper.lucene.common.Operator;
 import com.pepper.lucene.common.PepperResult;
 import com.pepper.lucene.comparator.base.PepperSortField;
 
+import static cn.com.lemon.base.Preasserts.checkArgument;
+import static cn.com.lemon.base.Strings.isNullOrEmpty;
 
 /**
  * The Pepper service API
@@ -53,7 +56,7 @@ import com.pepper.lucene.comparator.base.PepperSortField;
  * @version 1.0
  */
 public class IndexService implements IndexDao {
-	static final org.apache.log4j.Logger logger = org.apache.log4j.Logger.getLogger(IndexService.class.getName());
+	private static final transient Logger LOG = LoggerFactory.getLogger(IndexService.class.getName());
 	private static Map<String, IndexService> serviceMap = new HashMap<String, IndexService>();
 	private Map<String, Peppering> indexMap;
 	private Configuration indexConfig;
@@ -75,6 +78,9 @@ public class IndexService implements IndexDao {
 	}
 
 	private Directory getDirectory(DirectoryType directoryType, String indexPath) throws PepperException {
+		LOG.debug("Before read or write index files, The file path is not allowed to be empty!");
+		checkArgument(!isNullOrEmpty(indexPath),
+				"Before read or write index files, The file path is not allowed to be empty!");
 		LockFactory lockFactory = null;
 		if (this.indexConfig.isRunOnNFS()) {
 			lockFactory = NoLockFactory.getNoLockFactory();
@@ -100,6 +106,7 @@ public class IndexService implements IndexDao {
 	}
 
 	public Peppering getIndex(String indexPath) throws PepperException {
+		LOG.debug("Before read or write index files, The file path is not allowed to be empty!");
 		Peppering index = (Peppering) this.indexMap.get(indexPath);
 		if (index == null) {
 			index = new Peppering(getDirectory(this.indexConfig.getDefaultDirectoryType(), indexPath),
@@ -135,7 +142,7 @@ public class IndexService implements IndexDao {
 
 	private <T> T searchOperate(String[] indexPaths, Operator<IndexSearcher, T> operator, boolean ignoreNoIndex)
 			throws PepperException {
-		IndexSearcher indexSearcher = getNewMultiSearcher(indexPaths, ignoreNoIndex);
+		IndexSearcher indexSearcher = multiSearch(indexPaths, ignoreNoIndex);
 		if (indexSearcher == null) {
 			return null;
 		}
@@ -152,7 +159,7 @@ public class IndexService implements IndexDao {
 		}
 	}
 
-	private IndexSearcher getNewMultiSearcher(String[] indexPaths, boolean ignoreNoIndex) throws PepperException {
+	private IndexSearcher multiSearch(String[] indexPaths, boolean ignoreNoIndex) throws PepperException {
 		IndexSearcher multiSearcher = null;
 		List<IndexReader> readerList = new LinkedList<IndexReader>();
 		if (indexPaths == null) {

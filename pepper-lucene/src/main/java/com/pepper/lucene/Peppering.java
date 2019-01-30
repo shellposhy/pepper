@@ -3,7 +3,6 @@ package com.pepper.lucene;
 import java.io.IOException;
 import java.util.Collection;
 
-import org.apache.log4j.Logger;
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
@@ -32,6 +31,8 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.LockObtainFailedException;
 import org.apache.lucene.store.NoSuchDirectoryException;
 import org.apache.lucene.util.Version;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.pepper.lucene.common.Operator;
 import com.pepper.lucene.common.PepperResult;
@@ -45,7 +46,7 @@ import com.pepper.lucene.parser.MdQueryParser;
  * @version 1.0
  */
 public class Peppering {
-	private static final transient Logger LOG = Logger.getLogger(Peppering.class.getName());
+	private static final transient Logger LOG = LoggerFactory.getLogger(Peppering.class.getName());
 	private Directory directory;
 	private IndexReader indexReader;
 	private Configuration configuration;
@@ -54,7 +55,6 @@ public class Peppering {
 	/* =============The Index Initialize ==================== */
 	/* =============================================== */
 	public Peppering(Directory directory, Configuration indexConfig) {
-		LOG.debug("====init===");
 		this.directory = directory;
 		this.configuration = indexConfig;
 		try {
@@ -85,11 +85,14 @@ public class Peppering {
 		try {
 			return new IndexWriter(this.directory, indexWriterConfig);
 		} catch (CorruptIndexException e) {
+			LOG.debug("Index file writer error!");
 			throw new PepperException(e.getMessage());
 		} catch (LockObtainFailedException e) {
+			LOG.debug("The write index process is used!");
 			throw new PepperException("The write index process is used！", e);
 		} catch (IOException e) {
-			throw new PepperException("Read or Write Index Error！", e);
+			LOG.debug("Read or Write Index Error!");
+			throw new PepperException("Read or Write Index Error!", e);
 		}
 	}
 
