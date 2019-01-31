@@ -52,10 +52,10 @@ public final class Objects {
 	public static Document doc(Object clazz) {
 		if (null == clazz)
 			return null;
-		Document doc = new Document();
 		List<java.lang.reflect.Field> fields = fields(clazz.getClass());
 		// Java object is contains fields
 		if (null != fields && fields.size() > 0) {
+			Document doc = new Document();
 			for (Field field : fields) {
 				if (null != field) {
 					PepperField pepperField = field.getAnnotation(PepperField.class);
@@ -73,8 +73,9 @@ public final class Objects {
 					}
 				}
 			}
+			return doc;
 		}
-		return doc;
+		return null;
 	}
 
 	/* ========private utilities======== */
