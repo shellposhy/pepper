@@ -9,6 +9,12 @@ import org.apache.lucene.document.Field;
 
 import com.pepper.spring.enums.EDataType;
 
+/**
+ * Annotation tag for java bean {@code java.lang.reflect.Field}
+ *
+ * @author shellpo shih
+ * @version 1.0
+ */
 @Target({ ElementType.FIELD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PepperField {

@@ -25,7 +25,9 @@ import com.pepper.spring.enums.EIndexOperate;
  * @version 1.0
  */
 public class BaseEntity implements Serializable {
-	private static final long serialVersionUID = 6549885313472962978L;
+	private static final long serialVersionUID = 1L;
+
+	/** Every Java bean must contained the base field */
 	@PepperField(key = "UUID", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.STRING)
 	private String uuid;
 	@PepperField(key = "DocTime", store = Field.Store.YES, index = Field.Index.NOT_ANALYZED, type = EDataType.DATETIME)
