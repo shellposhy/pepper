@@ -1,5 +1,7 @@
 package com.pepper.spring.enums;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -10,7 +12,7 @@ import java.util.Date;
  * @version 1.0
  */
 public enum EDataType {
-	STRING, INTEGER, LONG, FLOAT, DOUBLE, DATE, DATETIME, ENUM, OBJECT;
+	STRING, INTEGER, LONG, FLOAT, DOUBLE, BIGDECIMAL, BIGINTEGER, DATE, DATETIME, ENUM, OBJECT;
 
 	public static Class<?> type(EDataType type) {
 		Class<?> clazz = null;
@@ -29,6 +31,12 @@ public enum EDataType {
 			break;
 		case DOUBLE:
 			clazz = Double.TYPE;
+			break;
+		case BIGDECIMAL:
+			clazz = BigDecimal.class;
+			break;
+		case BIGINTEGER:
+			clazz = BigInteger.class;
 			break;
 		case DATE:
 			clazz = Date.class;

@@ -1,6 +1,8 @@
 package com.pepper.spring.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 
 import org.apache.lucene.document.Field;
@@ -27,6 +29,10 @@ public class Article extends BaseEntity implements Serializable {
 	private ExtendInfo extendInfo = new ExtendInfo();
 	@PepperField(key = "DataType", store = Field.Store.YES, index = Field.Index.NO, termVector = Field.TermVector.NO, type = EDataType.ENUM)
 	private EDataType dataType = EDataType.INTEGER;
+	@PepperField(key = "BigDecimal", store = Field.Store.YES, index = Field.Index.NO, type = EDataType.BIGDECIMAL)
+	private BigDecimal bigDecimal = new BigDecimal("4521");
+	@PepperField(key = "BigInteger", store = Field.Store.YES, index = Field.Index.NO, type = EDataType.BIGINTEGER)
+	private BigInteger bigInteger = new BigInteger("8888");
 
 	public Integer getId() {
 		return id;
@@ -82,6 +88,22 @@ public class Article extends BaseEntity implements Serializable {
 
 	public void setDataType(EDataType dataType) {
 		this.dataType = dataType;
+	}
+
+	public BigDecimal getBigDecimal() {
+		return bigDecimal;
+	}
+
+	public void setBigDecimal(BigDecimal bigDecimal) {
+		this.bigDecimal = bigDecimal;
+	}
+
+	public BigInteger getBigInteger() {
+		return bigInteger;
+	}
+
+	public void setBigInteger(BigInteger bigInteger) {
+		this.bigInteger = bigInteger;
 	}
 
 }

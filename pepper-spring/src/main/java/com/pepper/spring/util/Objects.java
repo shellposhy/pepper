@@ -3,6 +3,8 @@ package com.pepper.spring.util;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -130,6 +132,10 @@ public final class Objects {
 						valueType = Float.TYPE;
 					} else if (valueTypeName.equals("java.lang.String")) {
 						valueType = String.class;
+					} else if (valueTypeName.equals("java.math.BigDecimal")) {
+						valueType = BigDecimal.class;
+					} else if (valueTypeName.equals("java.math.BigInteger")) {
+						valueType = BigInteger.class;
 					} else if (valueTypeName.equals("java.util.Date")) {
 						valueType = Date.class;
 					} else {
@@ -173,6 +179,16 @@ public final class Objects {
 		case DOUBLE:
 			docField = new NumericField(field.key(), store, index.ordinal() == 0 ? false : true);
 			docField.setDoubleValue(Double.parseDouble(value.toString()));
+			doc.add(docField);
+			break;
+		case BIGDECIMAL:
+			docField = new NumericField(field.key(), store, index.ordinal() == 0 ? false : true);
+			docField.setLongValue(((BigDecimal) value).longValue());
+			doc.add(docField);
+			break;
+		case BIGINTEGER:
+			docField = new NumericField(field.key(), store, index.ordinal() == 0 ? false : true);
+			docField.setLongValue(((BigInteger) value).longValue());
 			doc.add(docField);
 			break;
 		case DATE:
