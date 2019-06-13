@@ -31,13 +31,13 @@
 		</dependency>
 		<!-- analyzer -->
 		<dependency>
-			<groupId>cn.com.zhihuigu</groupId>
+			<groupId>nanshantec.pepper</groupId>
 			<artifactId>paoding-analyzer</artifactId>
 		</dependency>
 		<!-- lemmon -->
 		<dependency>
-			<groupId>bangyiba.common</groupId>
-			<artifactId>lemmon</artifactId>
+			<groupId>nanshantec</groupId>
+			<artifactId>lemon</artifactId>
 		</dependency>
 	</dependencies>
 

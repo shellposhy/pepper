@@ -48,7 +48,7 @@
 		</dependency>
 		<!-- analyzer -->
 		<dependency>
-			<groupId>cn.com.zhihuigu</groupId>
+			<groupId>nanshantec.pepper</groupId>
 			<artifactId>paoding-analyzer</artifactId>
 		</dependency>
 		<!-- json -->
@@ -66,12 +66,8 @@
 		</dependency>
 		<!-- lemmon -->
 		<dependency>
-			<groupId>bangyiba.common</groupId>
-			<artifactId>lemmon</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>bangyiba.common</groupId>
-			<artifactId>base</artifactId>
+			<groupId>nanshantec</groupId>
+			<artifactId>lemon</artifactId>
 		</dependency>
 		<!-- cglib -->
 		<dependency>

@@ -1,6 +1,5 @@
 package com.pepper.spring.util;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.math.BigDecimal;
@@ -22,7 +21,7 @@ import net.sf.cglib.reflect.FastMethod;
 import static cn.com.lemon.annotation.Reflections.fields;
 import static cn.com.lemon.annotation.Reflections.get;
 
-import static cn.com.people.data.util.HtmlUtil.getText;
+import static cn.com.lemon.base.Strings.text;
 
 import static cn.com.lemon.base.Strings.isNullOrEmpty;
 import static cn.com.lemon.base.Preasserts.checkArgument;
@@ -218,9 +217,9 @@ public final class Objects {
 		case STRING:
 		default:
 			try {
-				doc.add(new org.apache.lucene.document.Field(field.key(), getText(String.valueOf(value)), store, index,
+				doc.add(new org.apache.lucene.document.Field(field.key(), text(String.valueOf(value)), store, index,
 						termVector));
-			} catch (IOException e) {
+			} catch (Exception e) {
 				LOG.error("The name[" + field.key() + "] of Field created error!");
 			}
 			break;
