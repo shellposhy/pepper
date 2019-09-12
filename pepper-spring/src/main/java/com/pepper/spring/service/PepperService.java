@@ -47,4 +47,7 @@ public class PepperService {
 		return indexAddress;
 	}
 
+	public Indexer getIndexer() {
+		return indexer;
+	}
 }
