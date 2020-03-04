@@ -29,7 +29,7 @@
 		<spring_version>4.3.10.RELEASE</spring_version>
 		<lucene_version>3.5.0</lucene_version>
 		<paoding_version>1.0</paoding_version>
-		<jackson.version>2.9.4</jackson.version>
+		<jackson.version>2.10.3</jackson.version>
 		<lemon_version>1.1</lemon_version>
 		<base_version>1.0</base_version>
 		<cglib_version>3.1</cglib_version>
